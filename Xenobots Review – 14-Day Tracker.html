@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Xenobots Review – 14-Day Tracker</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--bg:#e8f1ee;--ink:#10262c;--mut:#516a70;--card:#f8fbfa;--line:#c5d7d2;--acc:#0f7b6c;--dish:#d5e6e1}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1b1f;--ink:#e3f0ec;--mut:#8fa8a8;--card:#15272c;--line:#27424a;--acc:#3cc7b0;--dish:#1b3239}}
+:root[data-theme="dark"]{--bg:#0e1b1f;--ink:#e3f0ec;--mut:#8fa8a8;--card:#15272c;--line:#27424a;--acc:#3cc7b0;--dish:#1b3239}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Bricolage Grotesque",system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.5}
+main{max-width:860px;margin:0 auto;padding:20px 16px 60px}
+h1{font-size:clamp(28px,6vw,44px);line-height:1.05;margin:8px 0 6px;font-weight:800;letter-spacing:-.02em}
+.sub{color:var(--mut);margin:0 0 20px;max-width:56ch}
+.top{display:grid;grid-template-columns:240px 1fr;gap:20px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px}
+.dish{width:100%;height:auto;display:block}
+.big{font-size:42px;font-weight:800;line-height:1}
+.bar{display:grid;grid-template-columns:70px 1fr 44px;gap:8px;align-items:center;font-size:14px;margin:6px 0}
+.trk{height:8px;background:var(--dish);border-radius:8px;overflow:hidden}.trk i{display:block;height:100%;border-radius:8px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0 6px}
+.chip{border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit;font-size:14px;padding:6px 14px;border-radius:99px;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.chip:focus-visible,.cb:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+h2{font-size:21px;margin:28px 0 8px;font-weight:600}
+h2 small{color:var(--mut);font-weight:400;font-size:14px;margin-left:8px}
+.t{display:grid;grid-template-columns:30px 1fr auto;gap:12px;padding:12px;background:var(--card);border:1px solid var(--line);border-radius:12px;margin:8px 0;border-left:5px solid var(--c)}
+.t.today{box-shadow:0 0 0 2px var(--acc)}
+.cb{width:26px;height:26px;border-radius:8px;border:2px solid var(--c);background:transparent;cursor:pointer;color:#fff;font-size:16px;line-height:1;padding:0}
+.t.done .cb{background:var(--c)}
+.t.done .tt{text-decoration:line-through;opacity:.6}
+.tt{font-weight:600}.how{color:var(--mut);font-size:14px;margin-top:2px}
+.meta{text-align:right;font-size:13px;color:var(--mut);white-space:nowrap}
+.own{display:inline-block;color:var(--c);font-weight:600}
+.rules{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:6px 18px 12px}
+.rules li{margin:6px 0}
+.note{font-size:13px;color:var(--mut);margin-top:24px}
+@media(max-width:600px){.top{grid-template-columns:1fr}.dish{max-width:220px;margin:auto}.t{grid-template-columns:30px 1fr}.meta{grid-column:2;text-align:left}}
+@media(prefers-reduced-motion:no-preference){.trk i{transition:width .4s}}
+</style></head><body><main>
+<h1>Xenobots review paper</h1>
+<p class="sub">14 days, 5 people, one paper. Tick a task when it is really finished. Everyone sees the same board.</p>
+<section class="top" aria-label="Overall progress">
+<svg class="dish" id="dish" viewBox="0 0 300 300" role="img" aria-label="Each cell is one task; filled cells are done"></svg>
+<div><div class="big" id="pct">0%</div><div id="cnt" style="color:var(--mut);margin-bottom:10px"></div><div id="bars"></div></div>
+</section>
+<div class="chips" id="chips" role="group" aria-label="Filter by person"></div>
+<div id="list"></div>
+<h2>How we work</h2>
+<ul class="rules">
+<li>10-minute check-in every day (call or chat): what I finished, what I will do today, where I am stuck.</li>
+<li>Stuck for more than 1 hour? Tell the group. Asking early saves a day.</li>
+<li>Write every sentence in your own words and add the citation right away. Never paste text from a paper.</li>
+<li>Keep everything in the shared folder: Papers, Notes, Drafts, Final. Name files like <b>S2-abilities-harsh-v1</b>.</li>
+<li>Use AI for explaining hard words and giving feedback, not for writing the paper or finding references. Check your college rule, and verify every source yourself.</li>
+<li>Show the professor a short outline (Day 7) and a full draft (Day 12) to get feedback early.</li>
+</ul>
+<p class="note">Day 1 is set to Mon 19 Oct. If you start on another day, the Day numbers still work; only the dates shown change.</p>
+</main>
+<script>
+const P={harsh:["Harsh","#0f7b6c"],hitesh:["Hitesh","#d1495b"],mayank:["Mayank","#c98a0f"],prakshi:["Prakshi","#6c5ce7"],anushka:["Anushka","#2f8fd8"]};
+const PH=["Setup","Find sources","Read and take notes","Write the draft","Revise","Submit"];
+const T=[
+["t1",0,1,1,"harsh","Ask the professor for the rules","Send one message asking: length, citation style (APA/MLA/IEEE), deadline, minimum sources, review or research paper. Paste the answer in the group."],
+["t2",0,1,1,"anushka","Make the shared folder and reference library","Create a Google Drive folder with Papers, Notes, Drafts, Final. Make a free Zotero account and a group library. Invite everyone."],
+["t3",0,1,2,"hitesh","Draft the review question","Write 2–3 options such as: What have xenobots and anthrobots achieved since 2020, and what limits their use? Team votes."],
+["t4",0,2,2,"mayank","Choose the 4 main sections","Suggested: how they are made, abilities, anthrobots and uses, ethics and limits. Check with Harsh so nothing overlaps."],
+["t5",0,2,2,"prakshi","Make the notes template","A table with columns: paper, year, what they did, main result, limitation, my section. Copy it for everyone."],
+["t6",1,3,3,"harsh","Save the 3 key papers","Kriegman 2020 (PNAS), Kriegman 2021 (PNAS), Gumuskaya 2023 (Advanced Science). Find them on Google Scholar and save to Zotero."],
+["t7",1,3,4,"hitesh","Find 5 sources on how xenobots are made","Search: xenobots design, evolutionary algorithm, Xenopus cells, reconfigurable organisms."],
+["t8",1,3,4,"mayank","Find 5 sources on anthrobots and uses","Search: anthrobots, human airway cells, drug delivery, tissue repair."],
+["t9",1,3,4,"prakshi","Find 5 sources on ethics, risks and background","Search: synthetic biology ethics, living robots regulation, plus 1–2 easy overview articles for the team."],
+["t10",1,4,4,"anushka","Collect and clean the source list","Remove duplicates, check each has authors, year and journal. Target: at least 20 sources. Tell the team what is missing."],
+["t11",2,4,6,"harsh","Read the 3 key papers and fill notes","Read abstract, introduction, conclusion first, then the results. One notes row per paper."],
+["t12",2,5,6,"hitesh","Read your 5 sources and fill notes","Same method. Mark where studies disagree or have weak points."],
+["t13",2,5,6,"mayank","Read your 5 sources and fill notes","Same method. Mark real-world limits and open questions."],
+["t14",2,5,6,"prakshi","Read your 5 sources and make a simple glossary","List hard words (self-assembly, morphogenesis…) with one-line plain English meanings for the team."],
+["t15",2,6,6,"anushka","Merge all notes into one sheet","Put every notes table into one file and chase anyone with missing rows."],
+["t16",2,7,7,"harsh","Final outline and word counts (30-min meeting)","Agree headings, who writes what, and words per section. Send the outline to the professor."],
+["t17",3,7,9,"harsh","Draft Section 2: abilities","Movement, self-healing, self-replication. Group ideas by theme, do not go paper by paper."],
+["t18",3,7,9,"hitesh","Draft Section 1: how xenobots are made","Cells, computer design, building process. Explain it so a first-semester student can follow."],
+["t19",3,7,9,"mayank","Draft Section 3: anthrobots and applications","What they can do, medical ideas, what is proven and what is only possible."],
+["t20",3,9,10,"hitesh","Draft Section 4: ethics, risks and limits","Use Prakshi's sources. Give both sides, then your team's view."],
+["t21",3,9,10,"mayank","Make the comparison table and list the gaps","Table of studies: year, method, result, limit. Then 3–4 open questions."],
+["t22",3,8,10,"prakshi","Read each draft and fix unclear sentences","Mark anything you had to read twice. Improve English and keep the same style across sections."],
+["t23",3,8,10,"anushka","Add citations and make a figure","Insert citations with Zotero in every section. Make one simple diagram and credit the source."],
+["t24",3,10,11,"harsh","Write Introduction and Conclusion, merge everything","Introduction ends with the review question. Conclusion answers it. Put all sections into one document."],
+["t25",3,11,11,"prakshi","Write the abstract","150–250 words, only after the merge. Question, method (literature review), main findings, takeaway."],
+["t26",4,11,12,"hitesh","Critical read of the whole draft","Does every section answer the question? Any logic gaps or repeated points?"],
+["t27",4,11,12,"mayank","Fact-check every claim","Match each claim to its source. Fix or remove anything you cannot find."],
+["t28",4,12,13,"prakshi","Language edit","Grammar, tense, spelling, one consistent style. Read it aloud."],
+["t29",4,12,13,"anushka","Format references and run the similarity check","Every in-text citation is in the list and the reverse. Fonts, spacing, margins as the professor said. Run the plagiarism check if available."],
+["t30",4,13,13,"harsh","Apply all fixes and do the final read","Resolve every comment, keep the team informed of the final version name."],
+["t31",5,14,14,"harsh","Submit and back up","Submit the final file, then save copies in Drive and on one phone or laptop."]
+];
+const START=new Date(2026,9,19);
+const dt=d=>{const x=new Date(START);x.setDate(x.getDate()+d-1);return x.toLocaleDateString("en-GB",{weekday:"short",day:"numeric",month:"short"})};
+const todayN=Math.floor((new Date(new Date().toDateString())-START)/864e5)+1;
+let done={},db=null,flt="all";
+try{done=JSON.parse(localStorage.getItem("xeno-done")||"{}")}catch(e){}
+function save(){try{localStorage.setItem("xeno-done",JSON.stringify(done))}catch(e){}}
+async function init(){
+ try{db=await claude.use("db")}catch(e){db=null}
+ if(db){try{db.collection("progress").onSnapshot(s=>{const d={};s.docs.forEach(x=>{const v=x.data();if(v&&v.done)d[x.id]=1});done=d;save();render()},()=>{})}catch(e){}}
+}
+function toggle(id){
+ const v=!done[id];if(v)done[id]=1;else delete done[id];save();render();
+ if(db){try{db.collection("progress").doc(id).set({done:v}).catch(()=>{})}catch(e){}}
+}
+function dish(){
+ const N=T.length,R=128;let s=`<circle cx="150" cy="150" r="144" fill="var(--dish)" stroke="var(--line)" stroke-width="3"/>`;
+ T.forEach((t,i)=>{const r=Math.sqrt((i+.5)/N)*R,a=i*2.39996,x=150+r*Math.cos(a),y=150+r*Math.sin(a),c=P[t[4]][1];
+  s+=done[t[0]]?`<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="11" fill="${c}"/>`:`<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="10" fill="none" stroke="${c}" stroke-width="2" stroke-dasharray="3 3"/>`});
+ document.getElementById("dish").innerHTML=s;
+}
+function render(){
+ const n=T.filter(t=>done[t[0]]).length;
+ document.getElementById("pct").textContent=Math.round(n/T.length*100)+"%";
+ document.getElementById("cnt").textContent=n+" of "+T.length+" tasks done"+(todayN>=1&&todayN<=14?" · today is Day "+todayN:"");
+ dish();
+ document.getElementById("bars").innerHTML=Object.keys(P).map(k=>{const a=T.filter(t=>t[4]===k),d=a.filter(t=>done[t[0]]).length;
+  return `<div class="bar"><span>${P[k][0]}</span><div class="trk"><i style="width:${d/a.length*100}%;background:${P[k][1]}"></i></div><span>${d}/${a.length}</span></div>`}).join("");
+ document.getElementById("chips").innerHTML=[["all","Everyone"]].concat(Object.keys(P).map(k=>[k,P[k][0]])).map(([k,l])=>`<button class="chip" data-k="${k}" aria-pressed="${flt===k}">${l}</button>`).join("");
+ let h="";
+ PH.forEach((p,pi)=>{const a=T.filter(t=>t[1]===pi&&(flt==="all"||t[4]===flt));if(!a.length)return;
+  const all=T.filter(t=>t[1]===pi),lo=Math.min(...all.map(t=>t[2])),hi=Math.max(...all.map(t=>t[3]));
+  h+=`<h2>${p}<small>Day ${lo===hi?lo:lo+"–"+hi}</small></h2>`;
+  a.forEach(t=>{const c=P[t[4]][1],od=todayN>=t[2]&&todayN<=t[3]&&!done[t[0]];
+   h+=`<div class="t ${done[t[0]]?"done":""} ${od?"today":""}" style="--c:${c}"><button class="cb" data-id="${t[0]}" role="checkbox" aria-checked="${!!done[t[0]]}" aria-label="Mark done: ${t[5]}">${done[t[0]]?"✓":""}</button><div><div class="tt">${t[5]}</div><div class="how">${t[6]}</div></div><div class="meta"><span class="own">${P[t[4]][0]}</span><br>${t[2]===t[3]?"Day "+t[2]:"Day "+t[2]+"–"+t[3]}<br>${dt(t[2])}</div></div>`})});
+ document.getElementById("list").innerHTML=h;
+}
+document.addEventListener("click",e=>{const b=e.target.closest(".cb");if(b)return toggle(b.dataset.id);const c=e.target.closest(".chip");if(c){flt=c.dataset.k;render()}});
+render();init();
+</script></body></html>
